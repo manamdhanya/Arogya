@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arogya Portal</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: #F7EBC3;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+  <header class="flex flex-col sm:flex-row items-center justify-between px-4 sm:px-8 py-4 gap-4">
+    <div class="flex items-center space-x-2">
+      <a href="/">
+        <img src="{{ url_for('static', filename='assets/icons/Final-Logo.jpeg') }}" alt="Logo"
+          class="w-20 h-20 object-contain">
+
+      </a>
+    </div>
+
+    <nav
+      class="flex flex-wrap justify-center sm:justify-start items-center gap-3 sm:gap-5 text-purple-800 font-medium text-sm">
+      <a href="/">Home</a>
+      <a href="/blog">Blog</a>
+      <a href="/bmi">Health Assessment</a>
+      <a href="/period-tracker" class="underline text-purple-700">Period Tracker</a>
+      <a href="/collaboration">Our Collaboration</a>
+      <a href="/about">About</a>
+    </nav>
+
+  </header>
+
+  <main class="flex-grow flex flex-col items-center px-4 sm:px-6 py-10 w-full">
+
+    <h1 class="text-3xl md:text-4xl font-bold text-purple-800 mb-4">
+      Track Your Menstrual Cycle
+    </h1>
+    <p class="text-purple-700 text-sm md:text-base max-w-xl text-center mb-6">
+      Enter your last period date and cycle length to view your cycle calendar & health tips.
+    </p>
+
+    <div id="input-section" class="bg-white rounded-2xl shadow-lg p-6 w-full max-w-md flex flex-col">
+      <label class="font-semibold mb-2">🩸 Last Period Date</label>
+      <input id="lastPeriod" type="date" class="border-2 border-purple-700 rounded-lg p-2 mb-4 w-full">
+
+      <label class="font-semibold mb-2">📅 Average Cycle Length (days)</label>
+      <input id="cycleLength" type="number" placeholder="28" value="28"
+        class="border-2 border-purple-700 rounded-lg p-2 mb-4 w-full">
+
+      <button onclick="generateCalendar()"
+        class="bg-purple-700 text-yellow-50 py-2 rounded-lg font-bold hover:bg-purple-900 transition w-full">
+        Show Calendar
+      </button>
+    </div>
+
+    <div id="calendar-section" class="hidden w-full max-w-3xl mt-6 flex flex-col items-center"></div>
+
+    <div id="tips-section" class="hidden w-full max-w-3xl mt-6 flex flex-col items-center space-y-4"></div>
+
+  </main>
+  <footer
+    class="max-w-6xl mx-auto mt-auto flex flex-col sm:flex-row items-center sm:justify-between space-y-4 sm:space-y-0 sm:space-x-14 px-4 py-6">
+    <div class="flex items-center space-x-2">
+      <img src="{{ url_for('static', filename='assets/icons/Final-Logo.jpeg') }}" alt="Logo"
+          class="w-20 h-20 object-contain">
+      <span class="font-semibold text-purple-800 text-xs sm:text-lg">© 2025. All Rights Reserved.</span>
+    </div>
+
+    <div class="flex space-x-6 pb-2 text-xl sm:text-2xl justify-center sm:justify-end w-full sm:w-auto">
+      <a href="#" class="text-purple-500 hover:text-purple-700"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" class="text-purple-500 hover:text-purple-700"><i class="fab fa-instagram"></i></a>
+      <a href="#" class="text-purple-500 hover:text-purple-700"><i class="fab fa-x-twitter"></i></a>
+    </div>
+  </footer>
+
+  <script>
+    function generateCalendar() {
+      const lastPeriod = document.getElementById("lastPeriod").value;
+      const cycleLength = parseInt(document.getElementById("cycleLength").value);
+      if (!lastPeriod || !cycleLength) return alert("Please fill all fields.");
+
+      document.getElementById("input-section").classList.add("hidden");
+      const calendar = document.getElementById("calendar-section");
+      const tips = document.getElementById("tips-section");
+      calendar.innerHTML = ""; calendar.classList.remove("hidden"); tips.classList.add("hidden");
+
+      const startDate = new Date(lastPeriod);
+      const nextMonth = new Date(startDate); nextMonth.setMonth(startDate.getMonth() + 1);
+      const month = nextMonth.getMonth(), year = nextMonth.getFullYear();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const firstDay = new Date(year, month, 1).getDay();
+
+      const header = document.createElement("h2");
+      header.className = "text-2xl font-semibold mb-4";
+      header.textContent = `${nextMonth.toLocaleString("default", { month: "long", year: "numeric" })}`;
+      calendar.appendChild(header);
+
+      const grid = document.createElement("div");
+      grid.className = "grid grid-cols-7 gap-2 text-center w-full";
+
+      ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].forEach(d => {
+        const c = document.createElement("div"); c.className = "font-bold"; c.textContent = d; grid.appendChild(c);
+      });
+
+      for (let i = 0; i < firstDay; i++) { grid.appendChild(document.createElement("div")); }
+
+      for (let d = 1; d <= daysInMonth; d++) {
+        const date = new Date(year, month, d);
+        const diff = Math.floor((date - startDate) / (1000 * 60 * 60 * 24));
+        const phase = ((diff % cycleLength) + cycleLength) % cycleLength + 1;
+
+        let emoji = "", bg = "";
+        if (phase <= 5) { emoji = "🩸"; bg = "bg-pink-300"; }
+        else if (phase <= 11) { emoji = "💧"; bg = "bg-blue-300"; }
+        else if (phase <= 16) { emoji = "🌞"; bg = "bg-yellow-300"; }
+        else { emoji = "🌙"; bg = "bg-purple-300"; }
+
+        const c = document.createElement("div");
+        c.className = `p-2 rounded-lg border font-semibold ${bg}`;
+        c.textContent = `${d} ${emoji}`;
+        grid.appendChild(c);
+      }
+
+      calendar.appendChild(grid);
+
+      const btn = document.createElement("button");
+      btn.textContent = "🌟 Phase Tips";
+      btn.className = "mt-4 bg-purple-700 text-white px-4 py-2 rounded-lg font-bold hover:bg-purple-900 transition";
+      btn.onclick = showTips; calendar.appendChild(btn);
+    }
+
+    function showTips() {
+      const t = document.getElementById("tips-section");
+      t.classList.remove("hidden");
+      t.innerHTML = `
+        <div class="bg-white p-6 rounded-xl shadow-lg w-full">
+          <h2 class="text-center font-bold text-xl text-purple-800 mb-4">Cycle Phase Tips</h2>
+          <p>🩸 Period: Rest, warm foods, iron rich diet.</p>
+          <p>💧 Follicular: Hydrate, exercise light.</p>
+          <p>🌞 Ovulation: High energy, protein rich foods.</p>
+          <p>🌙 Luteal: Reduce caffeine, relax, warm drinks.</p>
+          <button onclick="back()" class="mt-4 bg-purple-700 text-white px-4 py-2 rounded-lg font-bold">⬅ Back</button>
+        </div>`;
+      document.getElementById("calendar-section").classList.add("hidden");
+    }
+
+    function back() {
+      document.getElementById("tips-section").classList.add("hidden");
+      document.getElementById("calendar-section").classList.remove("hidden");
+    }
+  </script>
+
+</body>
+
+</html>

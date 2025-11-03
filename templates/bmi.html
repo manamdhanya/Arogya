@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Health Lifestyle Predictor | Arogya Portal</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+  <style>
+    body {
+      background-color: #F7EBC3;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .card {
+      background: white;
+      border-radius: 1.5rem;
+      box-shadow: 0 15px 45px rgba(102, 40, 182, 0.15);
+      backdrop-filter: blur(8px);
+      padding: 2rem;
+      transition: all 0.4s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 20px 50px rgba(102, 40, 182, 0.25);
+      transform: scale(1.02);
+    }
+
+    .input-field {
+      border: 1.5px solid #d8cdee;
+      border-radius: 0.75rem;
+      padding: 0.6rem 0.9rem;
+      width: 100%;
+    }
+
+    .btn-primary {
+      background-color: #6628B6;
+      color: white;
+      font-weight: 600;
+      border-radius: 0.75rem;
+      padding: 0.8rem;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+  <header class="flex flex-col sm:flex-row items-center justify-between px-4 sm:px-8 py-4 gap-4">
+    <div class="flex items-center space-x-2">
+      <a href="/">
+        <img src="{{ url_for('static', filename='assets/icons/Final-Logo.jpeg') }}" class="w-20 h-20 object-contain">
+      </a>
+    </div>
+
+    <nav class="flex flex-wrap justify-center sm:justify-start items-center gap-3 sm:gap-5 text-purple-800 font-medium text-sm">
+      <a href="/" class="underline text-purple-700">Home</a>
+      <a href="/blog">Blog</a>
+      <a href="/health-assessment">Health Assessment</a>
+      <a href="/period-tracker">Period Tracker</a>
+      <a href="/collaboration">Our Collaboration</a>
+      <a href="/about">About</a>
+    </nav>
+  </header>
+
+  <section class="flex flex-col items-center text-center px-4 mt-8 mb-4">
+    <h1 class="text-4xl md:text-5xl font-bold text-purple-800 mb-6">
+      Health & Fitness Lifestyle Predictor
+    </h1>
+
+    <div class="w-full max-w-2xl card">
+      <form id="predictForm" class="space-y-4">
+
+        <div>
+          <label class="text-purple-800 font-semibold">Age</label>
+          <input id="age" type="number" class="input-field" required>
+        </div>
+
+        <div>
+          <label class="text-purple-800 font-semibold">Gender</label>
+          <select id="gender" class="input-field" required>
+            <option>Male</option>
+            <option>Female</option>
+          </select>
+        </div>
+
+        <div class="grid grid-cols-1 gap-4">
+          <div>
+            <label class="text-purple-800 font-semibold flex justify-between">
+              Height (cm) <span id="heightVal" class="text-purple-700 font-bold">160</span>
+            </label>
+            <input id="height" type="range" min="120" max="200" value="160" class="w-full" oninput="updateBMI()">
+          </div>
+
+          <div>
+            <label class="text-purple-800 font-semibold flex justify-between">
+              Weight (kg) <span id="weightVal" class="text-purple-700 font-bold">60</span>
+            </label>
+            <input id="weight" type="range" min="30" max="150" value="60" class="w-full" oninput="updateBMI()">
+          </div>
+
+          <div class="mt-2 text-lg font-semibold text-purple-900">
+            <span>BMI Preview:</span>
+            <span id="bmiPreview" class="bg-white px-3 py-1 rounded-lg shadow">23.4</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-purple-800 font-semibold">Workout (days/week)</label>
+          <input id="workout" type="number" class="input-field" required>
+        </div>
+
+        <div>
+          <label class="text-purple-800 font-semibold">Calories (per day)</label>
+          <input id="calories" type="number" class="input-field" required>
+        </div>
+
+        <div>
+          <label class="text-purple-800 font-semibold">Sleep (hours/day)</label>
+          <input id="sleep" type="number" class="input-field" required>
+        </div>
+
+        <div>
+          <label class="text-purple-800 font-semibold">Water (litres/day)</label>
+          <input id="water" type="number" class="input-field" required>
+        </div>
+
+        <div>
+          <label class="text-purple-800 font-semibold">Fast Food (times/week)</label>
+          <input id="fastfood" type="number" class="input-field" required>
+        </div>
+
+        <div>
+          <label class="text-purple-800 font-semibold">Any Health Conditions?</label>
+          <select id="health" class="input-field" required>
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn-primary mt-6">Predict</button>
+      </form>
+
+      <div id="result" class="mt-6 font-semibold text-purple-700 text-lg"></div>
+    </div>
+  </section>
+
+  <footer class="max-w-6xl mx-auto mt-6 flex flex-col sm:flex-row items-center justify-between px-4 pb-4">
+    <div class="flex items-center space-x-2">
+      <img src="{{ url_for('static', filename='assets/icons/Final-Logo.jpeg') }}" class="w-20 h-20 object-contain">
+      <span class="font-semibold text-purple-800 text-sm sm:text-lg">© 2025. All Rights Reserved.</span>
+    </div>
+
+    <div class="flex space-x-6 text-xl sm:text-2xl">
+      <a href="#" class="text-purple-700"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" class="text-purple-700"><i class="fab fa-instagram"></i></a>
+      <a href="#" class="text-purple-700"><i class="fab fa-x-twitter"></i></a>
+    </div>
+  </footer>
+
+  <script>
+    function updateBMI() {
+      const height = document.getElementById("height").value;
+      const weight = document.getElementById("weight").value;
+
+      document.getElementById("heightVal").textContent = height;
+      document.getElementById("weightVal").textContent = weight;
+
+      let h = height / 100;
+      let bmi = (weight / (h * h)).toFixed(1);
+      document.getElementById("bmiPreview").textContent = bmi;
+    }
+    updateBMI();
+  </script>
+
+  <script>
+    const form = document.getElementById('predictForm');
+    const result = document.getElementById('result');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const data = {
+        age: age.value, gender: gender.value, height: height.value, weight: weight.value,
+        workout: workout.value, calories: calories.value, sleep: sleep.value,
+        water: water.value, fastfood: fastfood.value, health: health.value
+      };
+
+      try {
+        const response = await fetch("http://127.0.0.1:5004/predict", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        });
+
+        const res = await response.json();
+
+        result.innerHTML = `
+        <div class="mt-4 bg-purple-50 border border-purple-200 rounded-xl p-5">
+          <h2 class="text-2xl font-bold text-purple-800 mb-3">Your Health Results</h2>
+          
+          <div class="space-y-2 text-left">
+            <p class="flex justify-between text-lg">
+              <span class="font-semibold text-purple-700">BMI:</span>
+              <span class="font-bold text-purple-900 bg-white px-3 py-1 rounded-lg shadow">${res.bmi}</span>
+            </p>
+
+            <p class="flex justify-between text-lg">
+              <span class="font-semibold text-purple-700">Health Status:</span>
+              <span class="font-bold text-purple-900 bg-white px-3 py-1 rounded-lg shadow">${res.status}</span>
+            </p>
+
+            <p class="flex justify-between text-lg">
+              <span class="font-semibold text-purple-700">Lifestyle:</span>
+              <span class="font-bold text-purple-900 bg-white px-3 py-1 rounded-lg shadow">${res.lifestyle}</span>
+            </p>
+          </div>
+
+          <div class="mt-4 p-3 rounded-lg text-center bg-purple-100 font-semibold text-purple-800">
+            🧘‍♀️ Stay consistent — small steps build big change!
+          </div>
+        </div>`;
+      } catch {
+        result.innerHTML = "<span class='text-red-600'>⚠ Server error! Try again.</span>";
+      }
+    });
+  </script>
+
+</body>
+</html>

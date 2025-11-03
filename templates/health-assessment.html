@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arogya Portal</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+        }
+    </style>
+</head>
+
+<body style="background-color:#F7EBC3;" class="min-h-screen flex flex-col">
+
+    <header class="flex flex-col sm:flex-row items-center justify-between px-4 sm:px-8 py-4 gap-4">
+        <div class="flex items-center space-x-2">
+            <a href="/">
+                <img src="{{ url_for('static', filename='assets/icons/Final-Logo.jpeg') }}" alt="Logo"
+                    class="w-20 h-20 object-contain">
+
+            </a>
+        </div>
+
+        <nav
+            class="flex flex-wrap justify-center sm:justify-start items-center gap-3 sm:gap-5 text-purple-800 font-medium text-sm">
+            <a href="/">Home</a>
+            <a href="/blog">Blog</a>
+            <a href="/health-assessment" class="underline text-purple-700">Health Assessment</a>
+            <a href="/period-tracker">Period Tracker</a>
+            <a href="/collaboration">Our Collaboration</a>
+            <a href="/about">About</a>
+        </nav>
+    </header>
+
+    <section class="flex flex-col items-center text-center px-4">
+        <h1 class="text-3xl md:text-4xl font-bold text-purple-800 mt-4">
+            Your Personal Health Check
+        </h1>
+        <p class="text-purple-700 text-sm md:text-base mt-2 max-w-xl">
+            Hi, I am your Sakhi Didi Answer a few health questions to get personalized guidance.
+        </p>
+
+        <img src="https://static.vecteezy.com/system/resources/thumbnails/028/287/555/small_2x/an-indian-young-female-doctor-isolated-on-green-ai-generated-photo.jpg"
+            alt="Doctor" class="mt-6 rounded-2xl w-64 h-72 object-cover shadow-lg">
+    </section>
+
+    <div id="content" class="px-4 py-6"></div>
+    <footer
+        class="max-w-6xl mx-auto mt-auto flex flex-col sm:flex-row items-center sm:justify-between space-y-4 sm:space-y-0 sm:space-x-14 px-4 py-6">
+        <div class="flex items-center space-x-2">
+            <img src="{{ url_for('static', filename='assets/icons/Final-Logo.jpeg') }}" alt="Logo"
+                class="w-20 h-20 object-contain">
+            <span class="font-semibold text-purple-800 text-xs sm:text-lg">© 2025. All Rights Reserved.</span>
+        </div>
+
+        <div class="flex space-x-6 pb-2 text-xl sm:text-2xl justify-center sm:justify-end w-full sm:w-auto">
+            <a href="https://www.facebook.com/" class="text-purple-500 hover:text-purple-700"><i
+                    class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/" class="text-purple-500 hover:text-purple-700"><i
+                    class="fab fa-instagram"></i></a>
+            <a href="https://x.com/" class="text-purple-500 hover:text-purple-700"><i class="fab fa-x-twitter"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        const questions = [
+            "Do you experience regular sleep disturbances?",
+            "Do you feel fatigued or low on energy most of the time?",
+            "Do you experience stress or anxiety frequently?",
+            "Do you have frequent headaches or body pain?",
+            "Do you notice any unusual skin or hair changes?"
+        ];
+
+        let currentQuestion = 0;
+        const answers = [];
+
+        function renderQuestion() {
+            const q = questions[currentQuestion];
+            document.getElementById("content").innerHTML = `
+                <div class="max-w-xl mx-auto bg-white rounded-2xl shadow-lg p-6 mb-10">
+                    <h3 class="text-lg font-semibold text-center mb-4">${q}</h3>
+
+                    <div class="flex justify-center gap-4 mb-4">
+                        <button onclick="selectAnswer('Yes', this)"
+                            class="answer-btn px-6 py-2 rounded-xl border border-purple-400 text-purple-700 font-semibold bg-white hover:bg-purple-100 transition">
+                            Yes
+                        </button>
+                        <button onclick="selectAnswer('No', this)"
+                            class="answer-btn px-6 py-2 rounded-xl border border-purple-400 text-purple-700 font-semibold bg-white hover:bg-purple-100 transition">
+                            No
+                        </button>
+                    </div>
+
+                    <button id="nextBtn"
+                        class="hidden w-full bg-purple-700 text-white rounded-xl py-2 font-bold hover:bg-purple-900 transition">
+                        ${currentQuestion === questions.length - 1 ? "Finish" : "Next"}
+                    </button>
+                </div>`;
+        }
+
+        function selectAnswer(ans, btn) {
+            answers[currentQuestion] = ans;
+
+            document.querySelectorAll("#content button.answer-btn")
+                .forEach(b => b.className =
+                    "answer-btn px-6 py-2 rounded-xl border border-purple-400 text-purple-700 font-semibold bg-white hover:bg-purple-100 transition"
+                );
+
+            btn.className =
+                "answer-btn px-6 py-2 rounded-xl bg-purple-600 text-white font-semibold shadow-lg scale-105 border border-purple-700 transition";
+
+            document.getElementById("nextBtn").classList.remove("hidden");
+            document.getElementById("nextBtn").onclick = nextQuestion;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                renderQuestion();
+            } else {
+                showReport();
+            }
+        }
+
+        function showReport() {
+            let good = 0;
+            let html = `
+            <div class="max-w-xl mx-auto bg-white rounded-2xl shadow-lg p-6 mb-10">
+                <h2 class="text-center font-bold text-xl text-purple-800 mb-4">📝 Your Health Report</h2>
+                <ul class="space-y-3">`;
+
+            questions.forEach((q, i) => {
+                if (answers[i] === "Yes") {
+                    html += `<li class="bg-red-100 border-l-4 border-red-500 p-3 rounded-md">⚠️ ${q}</li>`;
+                } else {
+                    good++;
+                    html += `<li class="bg-green-100 border-l-4 border-green-600 p-3 rounded-md">✅ ${q}</li>`;
+                }
+            });
+
+            html += `</ul>
+                <p class="text-center font-semibold text-purple-800 mt-5">Health Score: ${good}/5</p>
+            </div>`;
+
+            document.getElementById("content").innerHTML = html;
+        }
+
+        renderQuestion();
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arogya Portal</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: #F7EBC3;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+  <header class="flex flex-col sm:flex-row items-center justify-between px-4 sm:px-8 py-4 gap-4">
+    <div class="flex items-center space-x-2">
+      <a href="/">
+        <img src="{{ url_for('static', filename='assets/icons/Final-Logo.jpeg') }}" alt="Logo"
+          class="w-20 h-20 object-contain">
+
+      </a>
+    </div>
+
+    <nav
+      class="flex flex-wrap justify-center sm:justify-start items-center gap-3 sm:gap-5 text-purple-800 font-medium text-sm">
+      <a href="/">Home</a>
+      <a href="/blog">Blog</a>
+      <a href="/health-assessment">Health Assessment</a>
+      <a href="/period-tracker">Period Tracker</a>
+      <a href="/collaboration" class="underline text-purple-700">Our Collaboration</a>
+      <a href="/about">About</a>
+    </nav>
+  </header>
+
+  <section class="bg-purple-800 text-white text-center py-16 px-6 flex-grow">
+    <h2 class="text-3xl md:text-4xl font-bold mb-4">Top Rated Fitness Centers</h2>
+    <p class="text-lg md:text-xl mb-12 max-w-3xl mx-auto">
+      Discover the best gyms near you — where fitness meets motivation. Each gym is selected for its quality,
+      accessibility, and user ratings.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto">
+
+      <div class="flex flex-col items-center bg-purple-900 rounded-xl p-4 shadow-lg">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_c6cn7xaCt99gSJYtBnjcl_rsYadP4ch1jg&s"
+          alt="Gold’s Gym" class="w-48 h-56 object-cover rounded-xl shadow-lg" />
+        <h3 class="mt-4 text-lg font-semibold text-yellow-100">Gold’s Gym, Andheri</h3>
+        <p class="text-yellow-100 font-bold">Rating: ⭐⭐⭐⭐☆ (4.3/5)</p>
+        <div class="mt-2 text-sm md:text-base space-y-1 text-yellow-100">
+          <p>🏋️ Premium Equipment | Group Classes | Trainers</p>
+          <p class="flex items-center justify-center gap-2">
+            📍 <a
+              href="https://www.google.com/maps/dir/19.1103341,72.8493528/Stilt+Level+04,+Supreme+City,+SUPREME+BUSINESS+PARK,+behind+Lake+Castle,+Hiranandani+Gardens,+Powai,+Mumbai,+Maharashtra+400076/@19.1175239,72.7973505,12z/data=!3m1!4b1!4m9!4m8!1m1!4e1!1m5!1m1!1s0x3be7c7e7861e0d1d:0x121f5aed72d1f89c!2m2!1d72.9085032!2d19.1115224?entry=ttu&g_ep=EgoyMDI1MTAyOS4yIKXMDSoASAFQAw%3D%3D"
+              target="_blank" class="underline hover:text-purple-300">View on Google Maps</a>
+          </p>
+          <p class="flex items-center justify-center gap-2">
+            📞 <a href="tel:+912267543210" class="underline hover:text-purple-300">+91 22 6754 3210</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="flex flex-col items-center bg-purple-900 rounded-xl p-4 shadow-lg">
+        <img src="https://images.livemint.com/img/2022/02/14/600x338/cultfit_1644837586737_1644837586875.jpg"
+          alt="Cult Fit Gym" class="w-48 h-56 object-cover rounded-xl shadow-lg" />
+        <h3 class="mt-4 text-lg font-semibold text-yellow-100">Cult Fit, Bandra</h3>
+        <p class="text-yellow-100 font-bold">Rating: ⭐⭐⭐⭐⭐ (4.8/5)</p>
+        <div class="mt-2 text-sm md:text-base space-y-1 text-yellow-100">
+          <p>💪 Functional Workouts | Yoga | Zumba | Cardio</p>
+          <p class="flex items-center justify-center gap-2">
+            📍 <a
+              href="https://www.google.com/maps/dir/19.1103341,72.8493528/Cult+Gym+Bandra+West+%7C+Fitness+Center+in+Bandra+West,+Mumbai,+Hill+Road,+near+Elco+Arcade,+Bandra+West,+Mumbai,+Maharashtra/@19.0805863,72.8015614,13z/data=!3m1!4b1!4m9!4m8!1m1!4e1!1m5!1m1!1s0x3be7c91ec7f198e3:0x6ae34022c96c7ab3!2m2!1d72.8334678!2d19.0559946?entry=ttu&g_ep=EgoyMDI1MTAyOS4yIKXMDSoASAFQAw%3D%3D"
+              target="_blank" class="underline hover:text-purple-300">View on Google Maps</a>
+          </p>
+          <p class="flex items-center justify-center gap-2">
+            📞 <a href="tel:+912298765432" class="underline hover:text-purple-300">+91 22 9876 5432</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="flex flex-col items-center bg-purple-900 rounded-xl p-4 shadow-lg">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZiyn-We4irIlPY_FN-tj7Ok8ZT0i9MtDAUQ&s"
+          alt="Fitness First Gym" class="w-48 h-56 object-cover rounded-xl shadow-lg" />
+        <h3 class="mt-4 text-lg font-semibold text-yellow-100">Fitness First, Powai</h3>
+        <p class="text-yellow-100 font-bold">Rating: ⭐⭐⭐⭐☆ (4.5/5)</p>
+        <div class="mt-2 text-sm md:text-base space-y-1 text-yellow-100">
+          <p>🏃‍♀️ Personal Training | Spa | Nutrition Guidance</p>
+          <p class="flex items-center justify-center gap-2">
+            📍 <a
+              href="https://www.google.com/maps/dir/19.1105737,72.8493046/FITNESS+FIRST,+%26,+BJP+office,+Bus+stop,+Pratap+Nagar+Rd,+near+to+Pratap+Nagar,+Bhandup+West,+Mumbai,+Maharashtra+400078/@19.125058,72.8077341,12z/data=!3m1!4b1!4m9!4m8!1m1!4e1!1m5!1m1!1s0x3be7b98acb4cb4b9:0xfa831bc78d2e5f1a!2m2!1d72.9236858!2d19.1392163?entry=ttu&g_ep=EgoyMDI1MTAyOS4yIKXMDSoASAFQAw%3D%3D"
+              target="_blank" class="underline hover:text-purple-300">View on Google Maps</a>
+          </p>
+          <p class="flex items-center justify-center gap-2">
+            📞 <a href="tel:+912244556677" class="underline hover:text-purple-300">+91 22 4455 6677</a>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer
+    class="max-w-6xl mx-auto mt-auto flex flex-col sm:flex-row items-center sm:justify-between space-y-4 sm:space-y-0 sm:space-x-14 px-4 py-6">
+    <div class="flex items-center space-x-2">
+      <img src="{{ url_for('static', filename='assets/icons/Final-Logo.jpeg') }}" alt="Logo"
+        class="w-20 h-20 object-contain">
+      <span class="font-semibold text-purple-800 text-xs sm:text-lg">© 2025. All Rights Reserved.</span>
+    </div>
+
+    <div class="flex space-x-6 pb-2 text-xl sm:text-2xl justify-center sm:justify-end w-full sm:w-auto">
+      <a href="#" class="text-purple-500 hover:text-purple-700"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" class="text-purple-500 hover:text-purple-700"><i class="fab fa-instagram"></i></a>
+      <a href="#" class="text-purple-500 hover:text-purple-700"><i class="fab fa-x-twitter"></i></a>
+    </div>
+  </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arogya Portal</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: #F7EBC3;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+  <header class="flex flex-col sm:flex-row items-center justify-between px-4 sm:px-8 py-4 gap-4">
+    <div class="flex items-center space-x-2">
+      <a href="/">
+        <img src="{{ url_for('static', filename='assets/icons/Final-Logo.jpeg') }}" alt="Logo"
+          class="w-20 h-20 object-contain">
+
+      </a>
+    </div>
+
+    <nav
+      class="flex flex-wrap justify-center sm:justify-start items-center gap-3 sm:gap-5 text-purple-800 font-medium text-sm">
+      <a href="/">Home</a>
+      <a href="/blog">Blog</a>
+      <a href="/health-assessment">Health Assessment</a>
+      <a href="/period-tracker">Period Tracker</a>
+      <a href="/collaboration">Our Collaboration</a>
+      <a href="/about" class="underline text-purple-700">About</a>
+    </nav>
+  </header>
+
+  <main class="flex-grow flex flex-col items-center px-4 sm:px-6 py-10 w-full max-w-4xl mx-auto text-center">
+    <h1 class="text-3xl md:text-4xl font-bold text-purple-800 mb-4">About Arogya — Health & Wellness</h1>
+    <p class="text-purple-700 text-base md:text-lg mb-8 max-w-2xl">
+      Arogya is a holistic health and wellness brand dedicated to making mindful living simple, accessible, and
+      empowering. Our mission is to guide individuals toward balanced physical, mental, and emotional well‑being through
+      education, preventive care tools, and supportive resources.
+    </p>
+
+    <div class="grid md:grid-cols-2 gap-6 w-full">
+      <div class="bg-white p-6 rounded-xl shadow-lg">
+        <h2 class="font-bold text-xl text-purple-800 mb-2">Our Mission</h2>
+        <p class="text-purple-700 text-sm">
+          To promote holistic well‑being by providing reliable guidance, preventive wellness tools, and accessible
+          health education rooted in trust, compassion, and science‑backed knowledge.
+        </p>
+        </p>
+      </div>
+
+      <div class="bg-white p-6 rounded-xl shadow-lg">
+        <h2 class="font-bold text-xl text-purple-800 mb-2">What We Offer</h2>
+        <p class="text-purple-700 text-sm">
+          Wellness assessments, period & hormonal health tracking, nutrition and fitness insights, mindful lifestyle
+          resources, and community‑focused support to help individuals build healthier habits and a confident lifestyle.
+        </p>
+        </p>
+      </div>
+    </div>
+
+    <div class="bg-purple-200 mt-8 p-6 rounded-xl shadow-lg max-w-xl">
+      <h2 class="text-xl font-bold text-purple-900 mb-2">Our Vision</h2>
+      <p class="text-purple-800 text-sm">
+        A future where everyone feels empowered, informed, and supported in building a healthy and balanced life, both
+        physically and mentally.
+      </p>
+    </div>
+  </main>
+
+  <footer
+    class="max-w-6xl mx-auto mt-auto flex flex-col sm:flex-row items-center sm:justify-between space-y-4 sm:space-y-0 sm:space-x-14 px-4 py-6">
+    <div class="flex items-center space-x-2">
+
+      <img src="{{ url_for('static', filename='assets/icons/Final-Logo.jpeg') }}" alt="Logo"
+        class="w-20 h-20 object-contain">
+      <span class="font-semibold text-purple-800 text-xs sm:text-lg">© 2025. All Rights Reserved.</span>
+    </div>
+
+    <div class="flex space-x-6 pb-2 text-xl sm:text-2xl justify-center sm:justify-end w-full sm:w-auto">
+      <a href="#" class="text-purple-500 hover:text-purple-700"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" class="text-purple-500 hover:text-purple-700"><i class="fab fa-instagram"></i></a>
+      <a href="#" class="text-purple-500 hover:text-purple-700"><i class="fab fa-x-twitter"></i></a>
+    </div>
+  </footer>
+
+</body>
+
+</html>

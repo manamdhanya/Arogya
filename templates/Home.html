@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arogya Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+
+<body style="background-color:#F7EBC3;" class="min-h-screen flex flex-col">
+    <header class="flex flex-col sm:flex-row items-center justify-between px-4 sm:px-8 py-4 gap-4">
+
+        <div class="flex items-center space-x-2">
+            <a href="/">
+                <img src="{{ url_for('static', filename='assets/icons/Final-Logo.jpeg') }}" alt="Logo"
+                    class="w-20 h-20 object-contain">
+
+            </a>
+        </div>
+
+        <nav
+            class="flex flex-wrap justify-center sm:justify-start items-center gap-3 sm:gap-5 text-purple-800 font-medium text-sm">
+            <a href="/" class="underline text-purple-700">Home</a>
+            <a href="/blog">Blog</a>
+            <a href="/health-assessment">Health Assessment</a>
+            <a href="/period-tracker">Period Tracker</a>
+            <a href="/collaboration">Our Collaboration</a>
+            <a href="/about">About</a>
+        </nav>
+    </header>
+
+
+    <section class="flex flex-col items-center text-center px-4">
+        <h1 class="text-4xl md:text-5xl font-bold text-purple-800 mt-8">
+            Your Health, Balanced & Simplified
+        </h1>
+        <img src="https://articles-1mg.gumlet.io/articles/wp-content/uploads/2015/09/yoga3-2.jpg?w=300&compress=true&quality=80&dpr=2.6"
+            alt="Group of women" class="mt-6 rounded-3xl w-11/12 max-w-2xl object-cover">
+    </section>
+
+    <section class="mt-12 bg-purple-800 text-yellow-100 py-8">
+        <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+            <div>
+                <div class="flex flex-col items-center md:items-start">
+                    <img src="https://images.emojiterra.com/mozilla/512px/1f4de.png" alt="Contact Icon"
+                        class="w-10 h-10 mb-2">
+                    <h3 class="font-semibold text-lg">Emergency Contact</h3>
+                    <p class="text-sm">For emergencies, contact local services immediately.</p>
+                    <p class="font-bold mt-2">123-456-7890</p>
+                </div>
+            </div>
+
+            <div>
+                <div class="flex flex-col items-center md:items-start">
+                    <img src="https://static.thenounproject.com/png/2654920-200.png" alt="Chat Icon"
+                        class="w-10 h-10 mb-2">
+                    <h3 class="font-semibold text-lg">Calculate Now</h3>
+                    <p class="text-sm">Easily check your wellness with our all-in-one Health and Fitness Calculator for
+                        personalized insights.</p>
+                    <a href="bmi">
+                        <button
+                            class="mt-3 px-4 py-2 bg-yellow-100 text-purple-800 rounded-md font-semibold hover:bg-yellow-200">
+                            Calculate Now
+                        </button>
+                    </a>
+
+                </div>
+            </div>
+
+            <div>
+                <div class="flex flex-col items-center md:items-start">
+                    <img src="https://images.emojiterra.com/google/noto-emoji/unicode-15.1/bw/512px/1f551.png"
+                        alt="Clock Icon" class="w-12 h-10 mb-2">
+                    <h3 class="font-semibold text-lg">Working Hours</h3>
+                    <p class="text-sm">Mon - Fri 8:00 am - 9:00 pm</p>
+                    <p class="text-sm">Saturday 9:00 am - 8:00 pm</p>
+                    <p class="text-sm">Sunday 10:00 am - 7:00 pm</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer
+        class="max-w-6xl mx-auto mt-8 flex flex-col sm:flex-row items-center sm:justify-between space-y-4 sm:space-y-0 sm:space-x-14 px-4">
+        <div class="flex items-center space-x-2">
+
+            <img src="{{ url_for('static', filename='assets/icons/Final-Logo.jpeg') }}" alt="Logo"
+                class="w-20 h-20 object-contain">
+            <span class="font-semibold text-purple-800 text-xs sm:text-lg">© 2025. All Rights Reserved.</span>
+        </div>
+
+        <div class="flex space-x-6 pb-2 text-xl sm:text-2xl justify-center sm:justify-end w-full sm:w-auto">
+            <a href="https://www.facebook.com/" class="text-purple-500 hover:text-purple-700"><i
+                    class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/" class="text-purple-500 hover:text-purple-700"><i
+                    class="fab fa-instagram"></i></a>
+            <a href="https://x.com/" class="text-purple-500 hover:text-purple-700"><i class="fab fa-x-twitter"></i></a>
+        </div>
+    </footer>
+</body>
+
+</html>
